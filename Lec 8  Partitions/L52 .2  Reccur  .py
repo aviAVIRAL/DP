@@ -1,0 +1,59 @@
+# Evaluate Boolean Expression to True | Partition 
+
+# recrussssion
+
+
+
+def evaluateExp(exp):
+    n = len(exp)
+    mod = 1000000007
+    
+    def f(i, j, isTrue):
+        # Base case 1:
+        if i > j:
+            return 0
+        # Base case 2:
+        if i == j:
+            if isTrue == 1:
+                return int(exp[i] == 'T')
+            else:
+                return int(exp[i] == 'F')
+        
+        ways = 0
+        for ind in range(i + 1, j, 2):
+            lT = f(i, ind - 1, 1)
+            lF = f(i, ind - 1, 0)
+            rT = f(ind + 1, j, 1)
+            rF = f(ind + 1, j, 0)
+
+            if exp[ind] == '&':
+                if isTrue:
+                    ways = (ways + (lT * rT) % mod) % mod
+                else:
+                    ways = (ways + (lF * rT) % mod + (lT * rF) % mod + (lF * rF) % mod) % mod
+            elif exp[ind] == '|':
+                if isTrue:
+                    ways = (ways + (lF * rT) % mod + (lT * rF) % mod + (lT * rT) % mod) % mod
+                else:
+                    ways = (ways + (lF * rF) % mod) % mod
+            else:
+                if isTrue:
+                    ways = (ways + (lF * rT) % mod + (lT * rF) % mod) % mod
+                else:
+                    ways = (ways + (lF * rF) % mod + (lT * rT) % mod) % mod
+        
+        return ways
+    
+    return f(0, n - 1, 1)
+
+if __name__ == "__main__":
+    exp = "F|T^F"
+    ways = evaluateExp(exp)
+    print("The total number of ways:", ways)
+
+
+
+
+
+
+
