@@ -1,0 +1,48 @@
+
+# tabulatiooomn   
+
+
+def subsetSumToK(n, k, arr):
+    dp = [[False for j in range(k + 1)] for i in range(n)]
+    
+    for i in range(n):
+        dp[i][0] = True
+    print()
+    # print(dp)
+    # print()
+    
+    if arr[0] <= k:
+        dp[0][arr[0]] = True
+
+    print()    
+    # print(dp)
+    print()
+
+    for ind in range(1, n):
+        for target in range(1, k + 1):
+            notTaken = dp[ind - 1][target]  # Not taking the current element.
+            taken = False
+            # Check if taking the current element is possible without exceeding the target.
+            if arr[ind] <= target:
+                taken = dp[ind - 1][target - arr[ind]]
+            dp[ind][target] = notTaken or taken  # Update the DP table with the result.
+    
+    # The final result is stored in the bottom-right cell of the DP table.
+    print(dp)
+    return dp[n - 1][k]
+
+def main():
+    arr = [1, 2, 3, 4]
+    k = 4
+    n = len(arr)
+
+    if subsetSumToK(n, k, arr):
+        print(" TRUE ")
+    else:
+        print("Subset with the given target not found")
+
+if __name__ == '__main__':
+    main()
+
+
+# aslro rep r e /   

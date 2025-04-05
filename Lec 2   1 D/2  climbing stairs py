@@ -1,0 +1,49 @@
+
+
+
+
+# Lc repre   recursion :  TLE de raha hai  : 100 % correct code 
+
+def f(ind): 
+    if ind == 0 : 
+        return 1 
+    if ind == 1 : 
+        return 1 
+    le = f(ind-1)
+    ri = f(ind-2)
+    return le + ri
+
+
+n = 3 
+print(f(n))
+
+
+# memoizatio  
+
+
+# also rerp 
+
+def main():
+    n = 3  # Number of stairs to climb
+    dp = [-1] * (n + 1)  # Initialize a DP array of size (n+1) with -1
+    dp[0] = 1  # Base case: 1 way to climb 0 stairs
+    dp[1] = 1  # Base case: 1 way to climb 1 stair
+
+    # Fill the DP array iteratively
+    for i in range(2, n + 1):
+        dp[i] = dp[i - 1] + dp[i - 2]  # Recurrence relation
+
+    # Print the number of ways to climb 'n' stairs
+    print(dp[n])
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+# tabulation  
+
+
